@@ -8,6 +8,7 @@ import React from "react"
 
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
 import { WelcomeScreen, DemoScreen } from "../screens"
+import { GridScreen } from "../screens/grid-screen/grid-screen";
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -23,7 +24,8 @@ import { WelcomeScreen, DemoScreen } from "../screens"
  */
 export type PrimaryParamList = {
   welcome: undefined
-  demo: undefined
+  demo: undefined,
+  grid: undefined,
 }
 
 // Documentation: https://github.com/software-mansion/react-native-screens/tree/master/native-stack
@@ -37,6 +39,7 @@ export function PrimaryNavigator() {
         gestureEnabled: true,
       }}
     >
+      <Stack.Screen name="grid" component={GridScreen} />
       <Stack.Screen name="welcome" component={WelcomeScreen} />
       <Stack.Screen name="demo" component={DemoScreen} />
     </Stack.Navigator>

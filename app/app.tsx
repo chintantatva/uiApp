@@ -48,7 +48,7 @@ const App: Component<{}> = () => {
 
   // Kick off initial async loading actions, like loading fonts and RootStore
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       setupRootStore().then(setRootStore)
     })()
   }, [])

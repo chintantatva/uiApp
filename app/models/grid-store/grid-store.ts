@@ -25,8 +25,9 @@ const imageSchema = {
         // The following property definitions are equivalent
         image: { type: 'string' },
         name: { type: 'string' },
-        primaryKey: 'name'
-    }
+
+    },
+    // primaryKey: 'name'
 }
 
 

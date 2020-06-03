@@ -20,7 +20,8 @@ export const GridScreen: Component = observer(function GridScreen() {
     const [sectionDataList, setSectionDataList] = useState([]);
 
     useEffect(() => {
-        setSectionListData()
+        setSectionListData();
+        rootStore.gridStore.getDataFromRelam()
         // Update the document title using the browser API
     }, []);
 

@@ -60,6 +60,14 @@ export const GridStoreModel = types.model("GridStore").props({
             });
         })
     },
+    getDataFromRelam() {
+        Realm.open({
+            schema: [userSchema]
+        }).then(realm => {
+            console.tron.log("Realm.objects('Users')", realm.objects('Users'))
+        });
+
+    },
     fetchUserNewPage: flow(function* fetchUserNewPage() {
         const userList = yield api.getGridList({ offset: self.gridList.length, limit: 10 })
         if (userList.kind == 'ok') {

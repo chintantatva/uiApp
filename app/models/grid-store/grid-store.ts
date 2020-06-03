@@ -43,7 +43,6 @@ export const GridStoreModel = types.model("GridStore").props({
         self.gridList = value
     },
     appendGridList(value) {
-        console.tron.log("call", value)
         let gridList = JSON.parse(JSON.stringify(self.gridList))
         gridList = gridList.concat(value);
         self.gridList = JSON.parse(JSON.stringify(gridList))

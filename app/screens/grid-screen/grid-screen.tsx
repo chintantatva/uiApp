@@ -3,6 +3,9 @@ import React, { FunctionComponent as Component, useEffect, useState } from "reac
 import { View, StyleSheet, Image, SectionList, FlatList, ScrollView, Dimensions, SafeAreaView } from "react-native";
 import { useStores } from "../../models";
 import { Text } from "../../components";
+import _ from 'lodash';
+import { throttle } from "../../utils";
+
 
 
 // import { SectionGrid } from 'react-native-super-grid';
@@ -17,14 +20,17 @@ export const GridScreen: Component = observer(function GridScreen() {
     const [sectionDataList, setSectionDataList] = useState([]);
 
     useEffect(() => {
-
         setSectionListData()
         // Update the document title using the browser API
     }, []);
 
+    useEffect(() => {
+        converSectionWiseData()
+        // Update the document title using the browser API
+    }, [rootStore.gridStore.gridList.length]);
 
-    async function setSectionListData() {
-        await rootStore.gridStore.fetchUser();
+
+    function converSectionWiseData() {
         const gridList = rootStore.gridStore.gridList;
         let sectionData = [];
         gridList.map((value) => {
@@ -36,14 +42,21 @@ export const GridScreen: Component = observer(function GridScreen() {
         setSectionDataList(sectionData)
     }
 
+    async function setSectionListData() {
+        await rootStore.gridStore.fetchUser();
+        converSectionWiseData()
+    }
+
 
     return (
         <SafeAreaView style={styles.outerView}>
             <ScrollView style={styles.outerView}
-                onScroll={(e) => {
-                    // rootStore.gridStore.fetchUserNewPage()
-
-                }}
+                onScroll={throttle((event) => {
+                    let contactSize = event.nativeEvent.contentSize.height / 2;
+                    if (event.nativeEvent.contentOffset.y > contactSize) {
+                        rootStore.gridStore.fetchUserNewPage()
+                    }
+                }, 1000)}
             >
                 {
                     sectionDataList.map((section) => {

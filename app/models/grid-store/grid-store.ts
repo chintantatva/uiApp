@@ -19,16 +19,17 @@ export const gridListApiParamsModal = types.model("gridListApiParamsModal").prop
 
 }))
 
-const imageSchema = {
-    name: 'Images',
-    properties: {
-        // The following property definitions are equivalent
-        image: { type: 'string' },
-        name: { type: 'string' },
 
-    },
-    // primaryKey: 'name'
+
+const userSchema = {
+    name: 'Users',
+    properties: {
+        name: 'string',
+        image: 'string',
+        items: 'string[]'
+    }, primaryKey: 'name',
 }
+
 
 
 const api = new Api();
@@ -46,19 +47,14 @@ export const GridStoreModel = types.model("GridStore").props({
     }),
     setDataInRelam(userList) {
         Realm.open({
-            schema: [{ name: 'Users', properties: { name: 'string', image: 'string' }, primaryKey: 'name', }, imageSchema]
+            schema: [userSchema]
         }).then(realm => {
             realm.write(() => {
                 userList.users.data.users.forEach(obj => {
-                    obj.items.forEach(item => {
-                        realm.create('Images', {
-                            name: obj.name,
-                            image: obj.image
-                        });
-                    })
                     realm.create('Users', {
                         name: obj.name,
-                        image: obj.image
+                        image: obj.image,
+                        items: obj.items
                     });
                 });
             });

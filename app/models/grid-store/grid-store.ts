@@ -30,6 +30,28 @@ const userSchema = {
     }, primaryKey: 'name',
 }
 
+const imageSchemaMultipleTabel = {
+    name: 'ImagesMu',
+    properties: {
+        name: 'string',
+        image: 'string',
+    },
+}
+
+const userSchemaMultipleTabel = {
+    name: 'UsersMu',
+    properties: {
+        name: 'string',
+        image: 'string',
+        images: {
+            type: "list",
+            objectType: "ImagesMu"
+        }
+    }, primaryKey: 'name',
+}
+
+
+
 
 
 const api = new Api();
@@ -41,11 +63,36 @@ export const GridStoreModel = types.model("GridStore").props({
     fetchUser: flow(function* fetchUser() {
         const userList = yield api.getGridList(self.gridListApiParams)
         if (userList.kind == 'ok') {
-            getParent(self).gridStore.setDataInRelam(userList)
+            getParent(self).gridStore.setDataInRelam(userList);
+            getParent(self).gridStore.setDataInMultipleTabel(userList)
             getParent(self).gridStore.updateGridList(userList.users.data.users)
         }
     }),
+    setDataInMultipleTabel(userList) {
+        Realm.open({
+            schema: [imageSchemaMultipleTabel, userSchemaMultipleTabel]
+        }).then(realm => {
+            realm.write(() => {
+                userList.users.data.users.forEach(obj => {
+                    let createduser = realm.create('UsersMu', {
+                        name: obj.name,
+                        image: obj.image,
+                        images: []
+                    });
+                    obj.items.forEach(objItem => {
+                        createduser.images.push({
+                            name: obj.name,
+                            image: objItem
+                        })
+                    })
+                });
+            });
+        }).catch((error) => {
+            console.tron.log("err", error)
+        })
+    },
     setDataInRelam(userList) {
+        // using one tabel
         Realm.open({
             schema: [userSchema]
         }).then(realm => {
@@ -61,6 +108,8 @@ export const GridStoreModel = types.model("GridStore").props({
         })
     },
     getDataFromRelam() {
+        console.tron.log("path", Realm.defaultPath)
+        //using on tabel
         Realm.open({
             schema: [userSchema]
         }).then(realm => {

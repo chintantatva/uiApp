@@ -33,7 +33,6 @@ const userSchema = {
 const imageSchemaMultipleTabel = {
     name: 'ImagesMu',
     properties: {
-        name: 'string',
         image: 'string',
     },
 }
@@ -81,7 +80,6 @@ export const GridStoreModel = types.model("GridStore").props({
                     });
                     obj.items.forEach(objItem => {
                         createduser.images.push({
-                            name: obj.name,
                             image: objItem
                         })
                     })
@@ -111,11 +109,10 @@ export const GridStoreModel = types.model("GridStore").props({
         console.tron.log("path", Realm.defaultPath)
         //using on tabel
         Realm.open({
-            schema: [userSchema]
+            schema: [userSchema, userSchemaMultipleTabel, imageSchemaMultipleTabel]
         }).then(realm => {
-            console.tron.log("Realm.objects('Users')", realm.objects('Users'))
+            console.tron.log("Realm.objects('Users')", realm.objects('UsersMu'))
         });
-
     },
     fetchUserNewPage: flow(function* fetchUserNewPage() {
         const userList = yield api.getGridList({ offset: self.gridList.length, limit: 10 })

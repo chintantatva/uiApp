@@ -54,47 +54,56 @@ export const GridScreen: Component = observer(function GridScreen() {
 
     return (
         <SafeAreaView style={styles.outerView}>
-            <ScrollView style={styles.outerView}
+            <FlatList
+                data={sectionDataList}
+                onEndReached={() => {
+                    rootStore.gridStore.fetchUserNewPage()
+                }
+                }
+                keyExtractor={(index) => index.toString()}
+                renderItem={({ item, index }) => {
+                    let section = item
+                    return (
+                        <View key={index} >
+                            <View style={styles.userNameOuterView} >
+                                {section.title.image ? <Image source={{ uri: section.title.image ? section.title.image : "" }} style={styles.userImageStyle} /> : null}
+                                <Text style={styles.sectionHeader}>{section.title.name}</Text>
+                            </View>
+                            <View style={styles.gridOuterView}  >
+                                {
+                                    section.data.map((value, index) => {
+                                        const isEven = section.data.length % 2 == 0
+                                        return (
+                                            <View key={index} style={[styles.gridCardStyle, {
+                                                height: isEven ? Dimensions.get('window').width / 2 - 20 : (
+                                                    index == 0 ? Dimensions.get('window').width - 20 : Dimensions.get('window').width / 2 - 20
+                                                ),
+                                                width: isEven ? Dimensions.get('window').width / 2 - 20 : (
+                                                    index == 0 ? Dimensions.get('window').width - 20 : Dimensions.get('window').width / 2 - 20
+                                                ),
+
+                                            }]}>
+                                                <Image source={{ uri: value ? value : "" }} style={styles.gridImageStyle} />
+                                            </View>
+                                        )
+                                    })
+                                }
+                            </View>
+                        </View>
+                    )
+                }
+
+                }
+                style={styles.outerView}
                 onScroll={throttle((event) => {
                     let contactSize = event.nativeEvent.contentSize.height / 2;
                     if (event.nativeEvent.contentOffset.y > contactSize) {
                         rootStore.gridStore.fetchUserNewPage()
                     }
                 }, 1000)}
-            >
-                {
-                    sectionDataList.map((section) => {
-                        return (
-                            <View key={section.title.name} >
-                                <View style={styles.userNameOuterView} >
-                                    {section.title.image ? <Image source={{ uri: section.title.image ? section.title.image : "" }} style={styles.userImageStyle} /> : null}
-                                    <Text style={styles.sectionHeader}>{section.title.name}</Text>
-                                </View>
-                                <View style={styles.gridOuterView}  >
-                                    {
-                                        section.data.map((value, index) => {
-                                            const isEven = section.data.length % 2 == 0
-                                            return (
-                                                <View key={index} style={[styles.gridCardStyle, {
-                                                    height: isEven ? Dimensions.get('window').width / 2 - 20 : (
-                                                        index == 0 ? Dimensions.get('window').width - 20 : Dimensions.get('window').width / 2 - 20
-                                                    ),
-                                                    width: isEven ? Dimensions.get('window').width / 2 - 20 : (
-                                                        index == 0 ? Dimensions.get('window').width - 20 : Dimensions.get('window').width / 2 - 20
-                                                    ),
+            />
 
-                                                }]}>
-                                                    <Image source={{ uri: value ? value : "" }} style={styles.gridImageStyle} />
-                                                </View>
-                                            )
-                                        })
-                                    }
-                                </View>
-                            </View>
-                        )
-                    })
-                }
-            </ScrollView>
+
         </SafeAreaView>
     )
 })

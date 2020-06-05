@@ -5,6 +5,8 @@ import { useStores } from "../../models";
 import { Text } from "../../components";
 import _ from 'lodash';
 import { throttle } from "../../utils";
+import DeviceInfo from 'react-native-device-info';
+
 
 
 
@@ -20,6 +22,7 @@ export const GridScreen: Component = observer(function GridScreen() {
     const [sectionDataList, setSectionDataList] = useState([]);
 
     useEffect(() => {
+        console.tron.log(DeviceInfo.getBuildNumber())
         setSectionListData();
         rootStore.gridStore.getDataFromRelam()
         // Update the document title using the browser API

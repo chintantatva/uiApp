@@ -1,0 +1,5 @@
+cd Documents/UiApp/android
+yarn bump-patch
+./gradlew clean
+./gradlew app:assembleRelease
+pwd

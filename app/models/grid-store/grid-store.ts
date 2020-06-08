@@ -59,6 +59,31 @@ export const GridStoreModel = types.model("GridStore").props({
     gridList: types.array(types.frozen()),
     gridListApiParams: types.optional(gridListApiParamsModal, {})
 }).actions(self => ({
+    fetchDataWebSocket() {
+        var ws = new WebSocket('wss://echo.websocket.org');
+
+        ws.onopen = () => {
+            console.tron.log("conncection open")
+            // connection opened
+            ws.send('something'); // send a message
+        };
+
+        ws.onmessage = (e) => {
+            console.tron.log('e',e)
+            // a message was received
+            // console.log(e.data);
+        };
+
+        ws.onerror = (e) => {
+            // an error occurred
+            console.log(e.message);
+        };
+
+        ws.onclose = (e) => {
+            // connection closed
+            console.log(e.code, e.reason);
+        };
+    },
     fetchUser: flow(function* fetchUser() {
         const userList = yield api.getGridList(self.gridListApiParams)
         if (userList.kind == 'ok') {

@@ -22,9 +22,10 @@ export const GridScreen: Component = observer(function GridScreen() {
     const [sectionDataList, setSectionDataList] = useState([]);
 
     useEffect(() => {
-        console.tron.log(DeviceInfo.getBuildNumber())
+
         setSectionListData();
         rootStore.gridStore.getDataFromRelam()
+        rootStore.gridStore.fetchDataWebSocket()
         // Update the document title using the browser API
     }, []);
 

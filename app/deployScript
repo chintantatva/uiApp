@@ -1,5 +1,23 @@
 cd Documents/UiApp/android
 yarn bump-patch
+
+cd app/build/outputs/apk/release/
+
 ./gradlew clean
 ./gradlew app:assembleRelease
-pwd
+
+echo please wait for while we are uploading file
+
+JOB=$(curl https://upload.diawi.com/ -F token=FNODL8LFbtuXdIZmzP5XjxQkVU994O9YdcR0oneze9 \
+-F file=@app-release.apk |  \jq '.job')
+
+
+JOBUPDATED="${JOB//\"}"
+
+sleep 5
+
+REQUEST=$"https://upload.diawi.com/status?token=FNODL8LFbtuXdIZmzP5XjxQkVU994O9YdcR0oneze9&job="
+REQUEST+=$JOBUPDATED 
+
+
+ curl -vvv ${REQUEST} | \jq '.'

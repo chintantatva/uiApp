@@ -131,8 +131,8 @@ android {
         applicationId "com.uiapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 87
-        versionName "11.0.94"
+        versionCode 90
+        versionName "11.4.0"
     }
     splits {
         abi {

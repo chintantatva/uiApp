@@ -1,18 +1,19 @@
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin';
 import React, { useEffect, forwardRef, useImperativeHandle, SFC } from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, TouchableOpacity } from "react-native";
 
 
 interface GoogleSigninComponentProps {
     config: object,
     buttonStyle: object,
-    buttonColor: string,
-    buttonSize: string,
+    color: string,
+    size: string,
     disabled: boolean,
     getToken: any,
     onError: any,
     userInfo: any,
-    ref: any
+    ref: any,
+    customeButton?: any
 }
 
 export const GoogleSigninComponent: SFC<GoogleSigninComponentProps> = forwardRef((props, ref) => {
@@ -72,7 +73,7 @@ export const GoogleSigninComponent: SFC<GoogleSigninComponentProps> = forwardRef
             props.userInfo(userInfo)
             const token = await GoogleSignin.getTokens();
             props.getToken(token)
-            console.warn("done", userInfo)
+
 
         } catch (error) {
             console.warn(error)
@@ -91,7 +92,7 @@ export const GoogleSigninComponent: SFC<GoogleSigninComponentProps> = forwardRef
     }
 
     function getSize() {
-        switch (props.buttonSize) {
+        switch (props.size) {
             case 'Wide':
                 return GoogleSigninButton.Size.Wide
             case 'Standard':
@@ -104,7 +105,7 @@ export const GoogleSigninComponent: SFC<GoogleSigninComponentProps> = forwardRef
     }
 
     function getButtonColor() {
-        switch (props.buttonColor) {
+        switch (props.color) {
             case 'Dark':
                 return GoogleSigninButton.Color.Dark
             case 'Standard':
@@ -116,14 +117,23 @@ export const GoogleSigninComponent: SFC<GoogleSigninComponentProps> = forwardRef
 
 
     return (
-        <View >
-            <GoogleSigninButton
-                style={props.buttonStyle}
-                size={getSize()}
-                color={getButtonColor()}
-                onPress={signIn}
-                disabled={props.disabled}
-            />
+        <View>
+            {
+                props.customeButton ?
+                    <TouchableOpacity
+                        onPress={signIn}
+                        disabled={props.disabled}
+                    >
+                        {props.customeButton()}
+                    </TouchableOpacity>
+                    : <GoogleSigninButton
+                        style={props.buttonStyle}
+                        size={getSize()}
+                        color={getButtonColor()}
+                        onPress={signIn}
+                        disabled={props.disabled}
+                    />
+            }
         </View>
     )
 })

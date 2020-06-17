@@ -1,5 +1,5 @@
 import React, { FunctionComponent as Component, useRef } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { GoogleSigninComponent } from '../../components/GoogleSigninComponent';
 
 
@@ -22,13 +22,15 @@ export const DemoScreen: Component = function DemoScreen() {
           webClientId: "1007353833221-t4rojhcbnvu6mrkqb7ol5h1pdpbp0jm9.apps.googleusercontent.com",
           offlineAccess: true
         }}
+        // only work while you are using defult button 
         // Icon: display only Google icon. Recommended size of 48 x 48.
         // Standard: icon with 'Sign in'. Recommended size of 230 x 48.
         // Wide: icon with 'Sign in with Google'. Recommended size of 312 x 48.
-        buttonSize={"Wide"}
+        size={"Wide"}
+        // only work while you are using defult button 
         //Dark: apply a blue background
         //Light: apply a light gray background
-        buttonColor={'Dark'}
+        color={'Dark'}
         //disabled
         disabled={false}
         // return userInfo
@@ -42,6 +44,13 @@ export const DemoScreen: Component = function DemoScreen() {
         getToken={(accessToken) => {
           console.tron.log('accessToken', accessToken)
         }}
+        customeButton={() => (
+          <View style={{ height: 100, width: 100, backgroundColor: "blue" }} >
+            <Text >sign in</Text>
+          </View>
+        )
+
+        }
         buttonStyle={{ width: 192, height: 48 }}
       />
     </View>

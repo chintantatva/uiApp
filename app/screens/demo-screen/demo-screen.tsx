@@ -51,7 +51,7 @@ export const DemoScreen: Component = function DemoScreen() {
         )
 
         }
-        buttonStyle={{ width: 192, height: 48 }}
+        style={{ width: 192, height: 48 }}
       />
     </View>
   )

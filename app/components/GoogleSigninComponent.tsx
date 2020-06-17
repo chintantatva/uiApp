@@ -5,7 +5,7 @@ import { View, Alert, TouchableOpacity } from "react-native";
 
 interface GoogleSigninComponentProps {
     config: object,
-    buttonStyle: object,
+    style?: object,
     color: string,
     size: string,
     disabled: boolean,
@@ -14,6 +14,10 @@ interface GoogleSigninComponentProps {
     userInfo: any,
     ref: any,
     customeButton?: any
+}
+
+const defaultStyle = {
+    width: 192, height: 48
 }
 
 export const GoogleSigninComponent: SFC<GoogleSigninComponentProps> = forwardRef((props, ref) => {
@@ -127,7 +131,7 @@ export const GoogleSigninComponent: SFC<GoogleSigninComponentProps> = forwardRef
                         {props.customeButton()}
                     </TouchableOpacity>
                     : <GoogleSigninButton
-                        style={props.buttonStyle}
+                        style={props.style ? props.style : defaultStyle}
                         size={getSize()}
                         color={getButtonColor()}
                         onPress={signIn}

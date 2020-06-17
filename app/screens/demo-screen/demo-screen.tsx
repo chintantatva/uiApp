@@ -1,16 +1,26 @@
 import React, { FunctionComponent as Component, useRef } from "react";
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
+import { FaceBookSignInComponent } from "../../components/FaceBookSignInComponent";
 import { GoogleSigninComponent } from '../../components/GoogleSigninComponent';
+
 
 
 
 export const DemoScreen: Component = function DemoScreen() {
   const googleComponent = useRef(null);
+  const facebookComponent = useRef(null);
 
 
 
+  //google
   // There are method avlible for signout, revokeAccess,getCurrentUser,isSignedIn and you can call method as following
   // googleComponent.current.signOut()
+
+
+  //facebook
+  // There are method avlible for logout and you can call method as following
+  // facebookComponent.current.logout()
+
 
   return (
     <View style={{ marginTop: 100 }} >
@@ -52,6 +62,35 @@ export const DemoScreen: Component = function DemoScreen() {
 
         }
         style={{ width: 192, height: 48 }}
+      />
+
+
+      <FaceBookSignInComponent
+        ref={facebookComponent}
+        permissions={['public_profile']}
+        disabled={false}
+        onError={(e) => {
+          console.warn(e)
+        }}
+        responsed={() => {
+
+        }}
+        onCancelled={() => {
+
+        }}
+        getAccessToken={() => {
+
+        }}
+        customeButton={() => (
+          <View style={{ height: 100, width: 100, backgroundColor: "red" }} >
+            <Text >fb sign in</Text>
+          </View>
+        )
+
+        }
+        onLogout={() => {
+
+        }}
       />
     </View>
   )

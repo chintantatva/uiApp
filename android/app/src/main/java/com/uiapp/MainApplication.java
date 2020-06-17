@@ -6,13 +6,17 @@ import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.reactnative.androidsdk.ReactNativeFacebookSDKCallback;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
+import androidx.multidex.MultiDexApplication;
 import java.util.List;
+
 // import co.apptailor.googlesignin.RNGoogleSigninPackage;  // <--- import
 
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends MultiDexApplication implements ReactApplication {
+
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -47,6 +51,8 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
+//    setContentView(R.layout.activity_main);
+//    facebook.sdkInitialize(getApplicationContext());
   }
 
   /**

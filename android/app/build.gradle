@@ -133,6 +133,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 90
         versionName "11.4.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -190,7 +191,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
-    implementation(project(":react-native-google-signin"))
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

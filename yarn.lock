@@ -11277,6 +11277,11 @@ react-native-device-info@^5.6.1:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.6.1.tgz#3ae88d8659b7b64d204dbfc39f69126b769363d4"
   integrity sha512-FxjenoDZJKT53pp/Tl5gMsw5DA82Y5tOuySQlKS5AaDmw+Bu6EqEJjt0z4TRhJOVoqVJ35oCiZ3xViVbz/hB0w==
 
+react-native-fbsdk@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-2.0.0.tgz#eb041bdb8f9b9180a1696d3bd7d7accee6554262"
+  integrity sha512-CyPKoBVt9Y+KznALcnN4lkh6dUNqZjyFS6GbkXXTFf72wR9Dl8bXF2dDj56w/o5/TFoCnNCmQlZgh7P/NiElZQ==
+
 react-native-flipper@^0.34.0:
   version "0.34.0"
   resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.34.0.tgz#7df1f38ba5d97a9321125fe0fccbe47d99e6fa1d"

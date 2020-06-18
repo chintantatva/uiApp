@@ -54,13 +54,13 @@ export const DemoScreen: Component = function DemoScreen() {
         getToken={(accessToken) => {
           console.tron.log('accessToken', accessToken)
         }}
-        customeButton={() => (
-          <View style={{ height: 100, width: 100, backgroundColor: "blue" }} >
-            <Text >sign in</Text>
-          </View>
-        )
+        // customeButton={() => (
+        //   <View style={{ height: 100, width: 100, backgroundColor: "blue" }} >
+        //     <Text >sign in</Text>
+        //   </View>
+        // )
 
-        }
+        // }
         style={{ width: 192, height: 48 }}
       />
 
@@ -81,13 +81,13 @@ export const DemoScreen: Component = function DemoScreen() {
         getAccessToken={() => {
 
         }}
-        customeButton={() => (
-          <View style={{ height: 100, width: 100, backgroundColor: "red" }} >
-            <Text >fb sign in</Text>
-          </View>
-        )
+        // customeButton={() => (
+        //   <View style={{ height: 100, width: 100, backgroundColor: "red" }} >
+        //     <Text >fb sign in</Text>
+        //   </View>
+        // )
 
-        }
+        // }
         onLogout={() => {
 
         }}

@@ -6,13 +6,19 @@
  */
 
 #import "AppDelegate.h"
-
+#import <React/RCTLinkingManager.h>
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 @import Firebase;
 
 @implementation AppDelegate
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [FBSDKAppEvents activateApp];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -29,9 +35,41 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [FIRApp configure];
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+  didFinishLaunchingWithOptions:launchOptions];
   
   return YES;
 }
+
+
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+  return [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
+}
+
+
+
+
+
+//- (BOOL)application:(UIApplication *)app
+//            openURL:(NSURL *)url
+//            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+//{
+//  if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
+//    return YES;
+//  }
+//
+//  if ([RCTLinkingManager application:app openURL:url options:options]) {
+//    return YES;
+//  }
+//
+//  return NO;
+//}
+
+
+
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {

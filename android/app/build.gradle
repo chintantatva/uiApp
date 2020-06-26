@@ -134,6 +134,9 @@ android {
         versionCode 90
         versionName "11.4.0"
         multiDexEnabled true
+        manifestPlaceholders = [
+      appAuthRedirectScheme: 'com.uiapp'
+    ]
     }
     splits {
         abi {
